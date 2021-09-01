@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Add answer ||Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Add New Comment</h1>
+        <div class="form">
+            <form action="{{ url_for("add_comment_to_question") }}" method="post">
+                <input type="hidden" name="username" value="{{ session["username"] }}">
+                <label for="message">Comment:</label>
+                <textarea rows="30" cols="10" name="message" id="message" placeholder="Enter your comment"></textarea>
+                <input type="submit" value="Add Comment" id="submit">
+                <input type="hidden" name="question_id" value="{{ question_id }}">
+            </form>
+        </div>
+    </main>
+{% endblock %}

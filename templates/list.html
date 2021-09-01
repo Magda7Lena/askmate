@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/list.css') }}">
+{% endblock %}
+
+{% block title %}
+    Question List || Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="button">
+        <a href="{{ url_for("display_tags") }}">
+            <button class="question-action">
+                Check tags
+            </button>
+        </a>
+        </div>
+        {% if questions %}
+            <div id="sort_button-container">
+                <div class="sorting__options">
+                    <form action="{{ url_for("display_questions") }}">
+                        <label id="order_by-label" for="order_by">Order by:</label>
+                        <select name="order_by" id="order_by">
+                            {% for header in table_headers %}
+                                {% if header != "id" and header != "image" and header != "user_id" %}
+                                    <option value="{{ header }}" {% if header == selected_header %}
+                                            selected {% endif %} >{{ header.capitalize() }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="order_direction">Order direction:</label>
+
+                        <select name="order_direction">
+                            <option value="ASC">Ascending</option>
+                            <option value="DESC" selected>Descending</option>
+                        </select>
+                        <button type="submit">Sort</button>
+                    </form>
+                </div>
+                {% if session["username"] %}
+                    <div class="button">
+                        <a href="{{ url_for("add_question_form") }}">
+                            <button class="question-action">Ask question</button>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            <ul class="questions">
+                {% for question in questions %}
+                    <a class="question_card" href="{{ url_for("qa_display", question_id=question.id) }}">
+                        <li class="question-summary">
+                            <h3>{{ question.title }}</h3>
+                            <p>{{ question.message }}</p>
+                            <div class="question-info">
+                                <p>Votes: {{ question.vote_number }} | Views: {{ question.view_number }}</p>
+                                <p><a href="{{ url_for("vote_question_up", question_id = question.id) }}"
+                                      class="question-action">VOTE +</a></p>
+                                <p><a href="{{ url_for("vote_question_down", question_id = question.id) }}"
+                                      class="question-action">VOTE -</a></p>
+                                <p>Question asked: {{ question["submission_time"] }} by {{ question["username"] }}</p>
+                            </div>
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1 id="empty-list">No questions yet! Go on, add one yourself.</h1>
+            <div id="empty-list-button-container">
+                <div>
+                    <a href="{{ url_for("add_question_form") }}">
+                        <button class="question-action">Ask question</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

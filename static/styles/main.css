@@ -1,0 +1,40 @@
+#product-overview {
+    background: linear-gradient(to top, rgba(80, 68, 18, 0.6) 10%, transparent),
+    url("/static/images/rick_sanchez.jpg") center/cover no-repeat border-box,
+    #ff1b68;
+    width: 100vw;
+    height: 85vh;
+    position: relative;
+}
+
+#product-overview h1 {
+    color: white;
+    font-family: "Anton", sans-serif;
+    position: absolute;
+    bottom: 5%;
+    left: 3%;
+    font-size: 1.6rem;
+}
+
+
+.styled-button {
+    font: inherit;
+    padding: 0.5rem 1.5rem;
+    background: orange;
+    border-color: orange;
+    color: white;
+    margin: 1rem 2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.styled-button:hover,
+.styled-button:active {
+    border: 1px solid #00329e;
+    background: #00329e;
+}
+
+.list-of-questions h1 {
+    margin-left: 2.5rem;
+}

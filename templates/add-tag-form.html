@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Add answer ||Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+
+        <h1>Add tag to question</h1>
+
+        <div class="form">
+            <form action="{{ url_for("add_tag") }}" method=post>
+                <select name="tags">
+                     {% for tag in tags %}
+                        <option value="{{ tag.name }}">{{ tag.name }}</option>
+                     {% endfor %}
+                </select>
+                <input type="submit" value="Submit your tag" id="submit">
+                <input type="hidden" name="question_id" value="{{ question_id }}">
+            </form>
+            <form action="{{ url_for("add_tag") }}" method=post>
+                <label for="name">Tag:</label>
+                <input type="text" name="name" id="name" placeholder="Enter a new tag">
+                <input type="submit" value="Submit your tag" id="submit">
+                <input type="hidden" name="question_id" value="{{ question_id }}">
+            </form>
+
+        </div>
+    </main>
+{% endblock %}

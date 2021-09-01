@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Edit Comment ||Ask Mate - Where people find answers
+    for all their questions
+{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Edit Comment</h1>
+    <div class="form">
+        <form action="{{ url_for("edit_comment") }}" method="post" >
+            <input type="hidden" name="id" value="{{ comment.id }}">
+            <input type="hidden" name="edited_count" value="{{ comment.edited_count }}">
+            <label for="message">Message:</label>
+            <textarea rows="30" cols="10" name="message" id="message">{{ comment.message }}</textarea>
+            <input type="submit" value="Update your comment" id="submit">
+        </form>
+    </div>
+</main>
+{% endblock %}

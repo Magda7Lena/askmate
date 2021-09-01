@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Edit Question ||Ask Mate - Where people find answers
+    for all their questions
+{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Edit question</h1>
+    <div class="form">
+        <form action="{{ url_for("edit_answer") }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ answer.id }}">
+            <label for="message">Message:</label>
+            <textarea rows="30" cols="10" name="message" id="message">{{ answer.message }}</textarea>
+            <label for="image">Select image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+            <input type="submit" value="Update your answer" id="submit">
+        </form>
+    </div>
+</main>
+{% endblock %}

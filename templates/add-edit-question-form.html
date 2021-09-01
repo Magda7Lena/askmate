@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    {% if question["id"] == None %} Add question {% else %}  Edit Question {% endif %}||Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        {% if question["id"] == None %}
+            <h1>Add a new question</h1>
+            <div class="form">
+                <form action="{{ url_for("add_question") }}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="username" value="{{ session["username"] }}">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" placeholder="Enter a title of your question">
+                    <label for="message">Message:</label>
+                    <textarea rows="30" cols="10" name="message" id="message" placeholder="Enter your question"></textarea>
+                    <label for="image">Select image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                    <input type="submit" value="Submit your question" id="submit">
+                </form>
+            </div>
+        {% else %}
+            <h1>Edit question</h1>
+            <div class="form">
+                <form action="{{ url_for("edit_question") }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ question["id"] }}">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" value=" {{ question["title"] }}">
+                    <label for="message">Message:</label>
+                    <textarea rows="30" cols="10" name="message" id="message">{{ question["message"] }}</textarea>
+                    <label for="image">Select image:</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                    <input type="submit" value="Update your question" id="submit">
+                </form>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}

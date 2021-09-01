@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Add answer ||Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Add a new answer</h1>
+        <h3 align="center"> {{ question_to_form["title"]}}</h3>
+        <h3 align="center"> {{ question_to_form["message"]}}</h3>
+        <div class="form">
+            <form action="{{ url_for("add_answer") }}" method="post">
+                <input type="hidden" name="username" value="{{ session["username"] }}">
+                <label for="message">Answer:</label>
+                <textarea rows="30" cols="10" name="message" id="message" placeholder="Enter your answer"></textarea>
+                <label for="image">Select image:</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <input type="submit" value="Submit your answer" id="submit">
+                <input type="hidden" name="question_id" value="{{ question_to_form["id"] }}">
+            </form>
+        </div>
+    </main>
+{% endblock %}

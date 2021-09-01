@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/list.css') }}">
+{% endblock %}
+
+{% block title %}
+    Question List || Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Are you sure about deleting this comment?</h1>
+        <div>
+            <a href="{{ url_for("delete_comment", comment_id=comment_id) }}">
+                <button class="question-action">YES</button>
+            </a>
+        </div>
+        <div>
+            <a href="{{ url_for("qa_display", question_id =  question_id) }}">
+                <button class="question-action">NO</button>
+            </a>
+        </div>
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

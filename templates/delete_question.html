@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/list.css') }}">
+{% endblock %}
+
+{% block title %}
+    Question List || Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Are you sure about deleting this question?</h1>
+        <div>
+            <form action="{{ url_for("delete_question") }}" method="post">
+                <input type="hidden" name="id" value="{{ q_check_id }}">
+                <div class="button">
+                    <button type="submit">Yes</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <form action="{{ url_for("qa_display", question_id = q_check_id ) }}" method="get">
+                <div class="button">
+                    <button type="submit">No</button>
+                </div>
+            </form>
+        </div>
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

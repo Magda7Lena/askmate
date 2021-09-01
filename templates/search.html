@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/list.css') }}">
+    <script src="{{ url_for('static', filename='scripts/search.js') }}" defer></script>
+{% endblock %}
+
+{% block title %}
+    Search Results || Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        {% if questions %}
+            <div class="search-container">
+                <h1 id="search-results">Found {{ questions | length }} {% if questions | length < 2 %} post {% else %}
+                    posts {% endif %} for phrase <span class="search-phrase">{{ sought_phrase }}</span>:</h1>
+                <a href="{{ url_for("index") }}" id="return-main-page">
+                    <button class="question-action">Take me back</button>
+                </a>
+            </div>
+            </div>
+            <div class="questions">
+                {% for question in questions %}
+                    <a class="question_card" href="{{ url_for("qa_display", question_id=question.id) }}">
+                        <div class="question-summary">
+                            <div class="question-content">
+                                <h3>{{ question.title }}</h3>
+                                <p>{{ question.message }}</p>
+                            </div>
+                            <div class="question-info">
+                                <p>Votes: {{ question.vote_number }} | Views: {{ question.view_number }}</p>
+                                <p>Question asked: {{ question["submission_time"] }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <div class="answers">
+                {% for answer in answers %}
+                    <div class="answer">
+                        <p>{{ answer["message"] }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h1 id="empty-list">No search results for phrase: <span class="search-phrase">{{ sought_phrase }}</span>
+            </h1>
+            <div id="empty-list-button-container">
+                <div>
+                    <a href="{{ url_for("index") }}">
+                        <button class="question-action">Take me back</button>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
+
+
+
+
+
+
+

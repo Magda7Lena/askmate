@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+{% endblock %}
+
+{% block title %}
+    Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section id="product-overview">
+            <h1>Get all the answers you deserve.</h1>
+        </section>
+        <a href="{{ url_for("display_questions") }}">
+            <button class="styled-button">
+                Please follow me (Show all)
+            </button>
+        </a>
+        <a href="{{ url_for("list_users") }}">
+            <button class="styled-button">
+                List users
+            </button>
+        <a href="{{ url_for("display_tags") }}">
+            <button class="styled-button">
+                Check tags
+            </button>
+        </a>
+        <section class="list-of-questions">
+            {% if questions %}
+                <h1>Latest questions:</h1>
+                <ul class="questions">
+                    {% for question in questions %}
+                        <a class="question_card" href="{{ url_for("qa_display", question_id=question.id) }}">
+                            <li class="question-summary">
+                                <h3>{{ question.title }}</h3>
+                                <p>{{ question.message }}</p>
+                                <div class="question-info">
+                                    <p>Votes: {{ question.vote_number }} | Views: {{ question.view_number }}</p>
+                                    <p>Question asked: {{ question["submission_time"] }} by {{ question["username"] }}</p>
+                                </div>
+                            </li>
+                        </a>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h1 id="empty-list">No questions yet! Go on, add one yourself.</h1>
+                <div id="empty-list-button-container">
+                    <div>
+                        <a href="{{ url_for("add_question_form") }}">
+                            <button class="question-action">Ask question</button>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+{% endblock %}

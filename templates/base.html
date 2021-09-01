@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/shared.css') }}">
+        <script src="{{ url_for('static', filename='scripts/shared.js') }}" defer></script>
+        <title>{% block title %} {% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div id="backdrop-register" class="visible">
+            <div class="modal modal-success visible">
+                {% for message in messages %}
+                    <h1 class="register-status">{{ message }}</h1>
+                    <div class="modal__actions">
+                        <button class="btn btn--success register">Ok</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
+<div id="backdrop"></div>
+<div class="modal" id="add-modal">
+    <form action="{{ url_for("register_user") }}" method="POST">
+        <div class="modal__content">
+            <label for="username">Email</label>
+            <input type="text" name="username" id="username"/>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password"/>
+        </div>
+        <div class="modal__actions">
+            <button class="btn btn--passive" type="reset">Cancel</button>
+            <button class="btn btn--success" type="button">Sign up</button>
+        </div>
+    </form>
+</div>
+<header class="main-header">
+    <div>
+        <a href="{{ url_for("index") }}" class="main-header__brand">
+            <img src="{{ url_for('static', filename='images/Logo_Ask_Mate.png') }}" alt="Ask Mate"></a>
+    </div>
+    <div class="search-field">
+        <form class="search-form" action="{{ url_for("display_searched") }}">
+            <input id="search-input" type="search" name="search" placeholder="Search...">
+            <div class="search-submit">
+                <button class="search-submit" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+    <nav class="main-nav">
+        <ul class="main-nav__items">
+            {% if session["username"] %}
+                <li class="main-nav__item main-nav__item--blue">
+                    <span>Welcome </span><a href="#">{{ session["username"] }}</a>
+                </li>
+                <li class="main-nav__item">
+                    <a href="{{ url_for("logout") }}">Log out</a>
+                </li>
+            {% else %}
+                <li class="main-nav__item">
+                    <a href="{{ url_for("login") }}">Log in</a>
+                </li>
+                <li class="main-nav__item main-nav__item--blue">
+                    <a id="sign-up">Sign up!</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>

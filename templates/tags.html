@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/list.css') }}">
+{% endblock %}
+
+{% block title %}
+    Question List || Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+<main>
+    <form action="{{ url_for("display_tags") }}">
+    <label id="choose_tag" for="choose_tag">Choose tag to check how many times was used</label>
+    <select name="tags">
+        {% for tag in tags %}
+            <option value="{{ tag.name }}">{{ tag.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Check</button>
+    </form>
+    <p> {{ selected_tag }} </p>
+</main>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/addquestion.css') }}">
+{% endblock %}
+
+{% block title %}
+    Add answer ||Ask Mate - Where people find answers for all their questions
+{% endblock %}
+
+{% block content %}
+    <main>
+
+        <h1>Delete answer</h1>
+        <h1 align="center"> {{ answer["message"] }}</h1>
+        <h3 align="center"> Do You wish to delete this answer??</h3>
+
+        <h4 align="center"><a href="{{ url_for("delete_answer", answer_id=answer_id)}}">YES</a></h4>
+        <h4 align="center"><a href="{{ url_for("qa_display", question_id=answer["question_id"])}}">NO</a></h4>
+
+
+    </main>
+{% endblock %}
